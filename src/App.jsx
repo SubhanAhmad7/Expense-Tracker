@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import IncomeModal from './components/IncomeModal'
 import ExpenseModal from './components/ExpenseModal';
+import { Flip, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -18,6 +20,15 @@ function App() {
   });
   const [isIncomModalOpen, setIsIncomModalOpen] = useState(false);
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
+
+
+  const deleteNotify = () => toast.success("Successfully deleted !", {
+    transition: Flip,
+    autoClose: 1000,
+    pauseOnHover: true,
+    position: "top-right",
+    theme:"colored"
+  });
 
   // open the income modal function
   const openIncomModal = () => {
@@ -64,6 +75,7 @@ function App() {
         return (i != index)
       })
       setExpenses(newItem)
+      deleteNotify();
     }
   }
 
@@ -136,6 +148,7 @@ localStorage.setItem("income", JSON.stringify(income));
             </tbody>
           </table>
         </div>
+        <ToastContainer/>
       </div>
     </>
   )
